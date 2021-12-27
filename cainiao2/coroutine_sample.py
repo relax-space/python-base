@@ -1,11 +1,15 @@
-'''
-说明：这是一个例子，并发下载数据，并保存到本地文件
-'''
 import asyncio
 import os
 
 import aiofiles
 from aiohttp import ClientSession, ClientTimeout, TCPConnector
+
+'''
+异步请求完整例子
+1. 异步请求数据
+2. 限制并发
+3. 异步保存文件
+'''
 
 
 async def download(page: int, folder: str, session: ClientSession):
@@ -32,12 +36,6 @@ async def main():
     sem = asyncio.Semaphore(50)
     # 异步请求，并保存到文件
     async with ClientSession(connector=TCPConnector(limit=5), timeout=ClientTimeout(300)) as session:
-        tasks = []
-        for page in url_pages:
-            tasks.append(asyncio.create_task(
-                trunks(sem, page, folder_name, session)))
-        done, pending = await asyncio.wait(tasks)
-        print(f'全部下载完成{sorted([i.result() for i in done])} {pending}')
         tasks = []
         for page in url_pages:
             tasks.append(
