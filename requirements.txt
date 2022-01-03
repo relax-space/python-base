@@ -1,3 +1,5 @@
 pytest
 # 下面的在非windows系统下可以使用
 # uvloop
+mysql-connector
+sqlalchemy
