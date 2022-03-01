@@ -7,11 +7,11 @@ class Person:
         self.name = name
 
     @staticmethod
-    def to_dict(obj: object):
+    def to_dict(obj: 'Person'):
         return obj.__dict__
 
     @classmethod
-    def from_dict(cls, dict: Dict):
+    def from_dict(cls, dict: Dict)->'Person':
         p = cls()
         p.__dict__ = dict
         return p

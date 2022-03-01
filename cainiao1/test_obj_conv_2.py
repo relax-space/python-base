@@ -11,20 +11,20 @@ class Person1:
 class Person:
     def __init__(self, name: str = 'good'):
         self.name = name
-        self.p1 = None
+        self.p1:Person1 = None
 
     @staticmethod
-    def to_dict_pure(obj: object):
+    def to_dict_pure(obj: 'Person'):
         return obj.__dict__
 
     @staticmethod
-    def to_dict(obj: object):
+    def to_dict(obj: 'Person'):
         obj.__dict__.update(
             {'fullname': f'{obj.__module__}.{obj.__class__.__name__}'})
         return obj.__dict__
 
     @staticmethod
-    def from_dict(dict: Dict):
+    def from_dict(dict: Dict)->'Person':
         module, classname = dict['fullname'].rsplit('.', 1)
         p = getattr(importlib.import_module(module), classname)()
         p.__dict__ = dict

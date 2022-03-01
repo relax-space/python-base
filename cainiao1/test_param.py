@@ -38,7 +38,8 @@ def test_args():
     v = args(*params)
     assert (1, 2, 3) == v, 'args 3 list error'
 
-    params = set((1, 2, 3))
+    # set 也可以用set((1,2,3))初始化
+    params = {1, 2, 3}
     v = args(*params)
     assert (1, 2, 3) == v, 'args 3 set error'
 

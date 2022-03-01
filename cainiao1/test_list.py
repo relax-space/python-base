@@ -3,6 +3,7 @@
 # append 和 extend
 # list.index(obj),sort
 # 浅复制 和 深度复制
+# 倒序删除
 
 import copy
 
@@ -100,3 +101,20 @@ def test_5():
     list6[3][0] = 'd'
     assert ['a', 'b', 'c', ['e', 'f']] == list1, 'deepcopy 1 error'
     assert ['a', 'b', 'c', ['d', 'f']] == list6, 'deepcopy 2 error'
+
+
+def test_6():
+    list1 = ['a', 'b', 'c', 'd']
+    for i in range(len(list1)-1, -1, -1):
+        if list1[i] == 'c':
+            del list1[i]
+    assert ['a', 'b', 'd'] == list1, 'list delete error'
+
+
+def test_7():
+    # 不要这样删除:https://blog.51cto.com/u_14246112/3157689
+    list1 = ['a', 'b', 'c']
+    for i in list1:
+        list1.remove(i)
+    # 本意是删除所有元素,但是删除的过程中列表发生了位移,所以删除了 a和c
+    assert ['b'] == list1, 'list delete 2 error'

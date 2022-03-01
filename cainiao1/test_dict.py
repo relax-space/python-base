@@ -35,7 +35,7 @@ def test_2():
 
 def test_3():
     # setdefault,update,get,pop,popitem
-    # setdefault 如果有没则增加，有则不变
+    # setdefault 如果没有则增加，有则不变
     dict1 = {'a': 1, 'b': 2}
     dict1.setdefault('c', 4)
     assert {'a': 1, 'b': 2, 'c': 4}, 'dict setdefault error'
@@ -90,7 +90,7 @@ def test_5():
     assert {'a': 1, 'b': {'c': 1, 'd': 2}} == dict1, 'dict copy 2 error'
     assert {'a': 1, 'b': {'c': 1, 'd': 2}} == dict2, 'dict copy 2.1 error'
 
-    # 3.浅复制：不改变原字典
+    # 3.深复制：不改变原字典
     dict1 = {'a': 1, 'b': {'c': 1}}
     dict2 = copy.deepcopy(dict1)
     dict2['b'].setdefault('d', 2)

@@ -20,9 +20,9 @@ def test_1():
 def test_2():
     # 2.填充零的方式
     price = 123
-    str1 = '%04d' % 123
-    str2 = str(123).rjust(4, '0')
-    str3 = str(123).zfill(4)
+    str1 = '%04d' % price
+    str2 = str(price).rjust(4, '0')
+    str3 = str(price).zfill(4)
     assert '0123' == str1, '% format error'
     assert '0123' == str2, 'rjust error'
     assert '0123' == str3, 'zfill error'
@@ -75,6 +75,7 @@ def test_7():
     raw = 'I am  from jingzhou'
     a1 = raw.split(' ')
     assert {'I', 'am', 'from', '', 'jingzhou'} == set(a1), 'split error'
+    # \s+ 正则表示用1个或者多个空格分割,所以am  from之间的两个空格会当做1个分割符去分割
     a2 = re.split(r'\s+', raw)
     assert {'I', 'am', 'from', 'jingzhou'} == set(a2), 'split re error'
 
@@ -96,3 +97,9 @@ def test_9():
     # isspace
     raw = '  '
     assert raw.isspace(), 'isspace error'
+
+
+def test_10():
+    # join
+    raw1 = ['a', 'b', 'c']
+    assert 'a:b:c' == ':'.join(raw1)
