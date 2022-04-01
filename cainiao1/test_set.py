@@ -112,7 +112,6 @@ def test_5():
     assert 4 == p1.a, 'copy 3 error'
     assert 4 == p2.a, 'copy 4 error'
 
-
     set1 = {1,  Person(2, 3)}
     set2 = copy.deepcopy(set1)
     for i in set2:
@@ -125,3 +124,14 @@ def test_5():
     assert 4 == p4.a, 'copy 4 error'
 
     pass
+
+
+def test_6():
+    '''
+    set 去重,并且保证之前的顺序
+    '''
+    list1 = [1, 2, 7, 2, 5]
+    list2 = list(set(list1))
+    assert [1, 2, 5, 7] == list2, 'set sort error'
+    list2.sort(key=list1.index)
+    assert [1, 2, 7, 5] == list2, 'set sort  2 error'

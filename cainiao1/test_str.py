@@ -20,12 +20,17 @@ def test_1():
 def test_2():
     # 2.填充零的方式
     price = 123
-    str1 = '%04d' % price
-    str2 = str(price).rjust(4, '0')
-    str3 = str(price).zfill(4)
-    assert '0123' == str1, '% format error'
-    assert '0123' == str2, 'rjust error'
-    assert '0123' == str3, 'zfill error'
+
+    # 其实我就用这一种, 后面的仅供参考
+    assert '0123' == f'{price:0>4}', 'format 3 error'
+
+    assert '0123' == '%04d' % price, ' format 1 error'
+
+    assert '0123' == str(price).rjust(4, '0'), 'rjust error'
+
+    assert '0123' == str(price).zfill(4), 'zfill error'
+
+    assert '0123' == '{:0>4}'.format(str(price)), 'format 2 error'
 
 
 def test_3():
