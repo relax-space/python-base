@@ -185,3 +185,8 @@ def test_bracket_big():
     data1 = 'a1b12c134d1234e'
     res_list = re.findall(r'\d{2,}', data1)
     assert ['12', '134', '1234'] == res_list, r're {} error'
+
+def test_zh():
+    data1 ='我爱111北京%天安🍬___%$|&门'
+    res_list = re.findall(r'[\u4e00-\u9fa5]+',data1)
+    assert '我爱北京天安门' == ''.join(res_list), r're zh error'
