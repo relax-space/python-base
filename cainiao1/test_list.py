@@ -34,7 +34,7 @@ def test_2():
     # 方法：list(p), + , in,enumerate
     list1 = list('abc')
     assert ['a', 'b', 'c'] == list1, 'list(p) 方法错误'
-    list1 = list1+['d', 'e']
+    list1 = list1 + ['d', 'e']
     assert ['a', 'b', 'c', 'd', 'e'] == list1, 'list相加错误'
     assert 'a' in list1, 'list的in操作错误'
 
@@ -70,16 +70,40 @@ def test_4():
     list1.sort(reverse=True)
     assert ['c', 'b', 'a'] == list1, 'list sort reverse 方法错误'
 
-    list2 = [{'name': 'b', 'age': 20}, {
-        'name': 'a', 'age': 18}, {'name': 'b', 'age': 19}]
+    list2 = [{
+        'name': 'b',
+        'age': 20
+    }, {
+        'name': 'a',
+        'age': 18
+    }, {
+        'name': 'b',
+        'age': 19
+    }]
     list2.sort(key=lambda kv: kv['name'])
     assert {'name': 'a', 'age': 18} == list2[0], 'list sort key方法错误'
     list2.sort(key=lambda kv: kv['age'])
-    assert [{'name': 'a', 'age': 18}, {'name': 'b', 'age': 19},
-            {'name': 'b', 'age': 20}] == list2, 'list sort key 方法错误'
+    assert [{
+        'name': 'a',
+        'age': 18
+    }, {
+        'name': 'b',
+        'age': 19
+    }, {
+        'name': 'b',
+        'age': 20
+    }] == list2, 'list sort key 方法错误'
     list2.sort(key=lambda kv: (kv['name'], kv['age']))
-    assert [{'name': 'a', 'age': 18}, {'name': 'b', 'age': 19},
-            {'name': 'b', 'age': 20}] == list2, 'list sort key 方法错误'
+    assert [{
+        'name': 'a',
+        'age': 18
+    }, {
+        'name': 'b',
+        'age': 19
+    }, {
+        'name': 'b',
+        'age': 20
+    }] == list2, 'list sort key 方法错误'
 
 
 def test_5():
@@ -105,7 +129,7 @@ def test_5():
 
 def test_6():
     list1 = ['a', 'b', 'c', 'd']
-    for i in range(len(list1)-1, -1, -1):
+    for i in range(len(list1) - 1, -1, -1):
         if list1[i] == 'c':
             del list1[i]
     assert ['a', 'b', 'd'] == list1, 'list delete error'
@@ -118,3 +142,33 @@ def test_7():
         list1.remove(i)
     # 本意是删除所有元素,但是删除的过程中列表发生了位移,所以删除了 a和c
     assert ['b'] == list1, 'list delete 2 error'
+
+
+def test_8():
+    a1 = [i for i in range(100)]
+    s1 = split_list_by_size(a1, 7)
+    # 每个小集合应该都是7,最后一个是小于等于7
+    assert len(s1[-1]) <= 7, 'split size 1 error'
+    s1.pop()
+    for i in s1:
+        assert len(i) == 7, 'split size 2 error'
+
+
+def test_9():
+    a1 = [i for i in range(100)]
+    s1 = split_list_by_number(a1, 7)
+    # 大集合中有7个小集
+    assert len(s1) == 7, 'split number 2 error'
+
+
+def split_list_by_size(raw_list, n):
+    # n:小集合的长度为n
+    l = len(raw_list)
+    return [raw_list[i:i + n] for i in range(0, l, n)]
+
+
+def split_list_by_number(raw_list, n):
+    # n:有多少个小集合的长度为
+    l = len(raw_list)
+    s = int(l / n) + 1
+    return [raw_list[i:i + s] for i in range(0, l, s)]
