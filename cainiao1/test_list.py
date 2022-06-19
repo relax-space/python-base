@@ -168,7 +168,7 @@ def split_list_by_size(raw_list, n):
 
 
 def split_list_by_number(raw_list, n):
-    # n:有多少个小集合的长度为
+    # n:有多少个小集合
     l = len(raw_list)
     s = int(l / n) + 1
     return [raw_list[i:i + s] for i in range(0, l, s)]

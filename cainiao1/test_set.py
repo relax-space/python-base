@@ -21,7 +21,7 @@ def test_1():
     set1.update({1, 4})
     assert {1, 3, 4} == set1, 'update 1 error'
 
-    set1.update((5,))
+    set1.update((5, ))
     assert {1, 3, 4, 5} == set1, 'update 2 error'
 
     e = 5 if 5 in set1 else None
@@ -29,14 +29,18 @@ def test_1():
 
     set1.discard(5)
     assert {1, 3, 4} == set1, 'discart error'
-    pass
+
+
+    res = set1.pop()
+    print(res,set1)
+    assert 1== res and {3,4} == set1, 'pop error'
 
 
 def test_2():
     # - | & ^, difference,union,intersection,symmetric_difference
     set1 = {1, 2, 3}
     set2 = {2, 3, 4}
-    setx = set1-set2
+    setx = set1 - set2
     assert {1} == setx, '- error'
 
     setx = set1 | set2
@@ -68,7 +72,7 @@ def test_3():
     set1 = set([1, 2])
     assert {1, 2} == set1, '[1,2] error'
 
-    set1 = set((1,))
+    set1 = set((1, ))
     assert {1} == set1, r'{1} error'
 
     set1 = set('abc')
@@ -88,15 +92,17 @@ def test_4():
 
 
 class Person:
+
     def __init__(self, a: int, b: int):
         self.a = a
         self.b = b
+
     pass
 
 
 def test_5():
     # 浅复制 和 深度复制
-    set1 = {1,  Person(2, 3)}
+    set1 = {1, Person(2, 3)}
     set2 = {i for i in set1}
     set2.update({4})
     assert not {4}.issubset(set1), 'copy 1 error'
@@ -112,7 +118,7 @@ def test_5():
     assert 4 == p1.a, 'copy 3 error'
     assert 4 == p2.a, 'copy 4 error'
 
-    set1 = {1,  Person(2, 3)}
+    set1 = {1, Person(2, 3)}
     set2 = copy.deepcopy(set1)
     for i in set2:
         if type(i) == Person:
