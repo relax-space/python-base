@@ -21,6 +21,10 @@ def test_sub():
     num = re.sub(r'(.*?)is ', '', data1)
     assert '15811112222' == num, 're sub 3 error'
 
+    # 保留分组, nice, \1表示第一组,如果有多个组,还可以\2
+    num = re.sub(r'.*?(\d+)', r'\1', data1)
+    assert '15811112222' == num, 're sub 4 err'
+
 
 def test_sub2():
     data1 = 'a:1,b:2,c:3'
