@@ -109,6 +109,7 @@ def test_4():
 def test_5():
     # 浅复制 和 深度复制
     # 只有list1中的数据是引用类型的时候，才会考虑deepcopy，否则，平常的copy就行
+    # 也就是说,如果只是修改a,b,c, list3,list4,list5 都不会影响list1
     list1 = ['a', 'b', 'c', ['e', 'f']]
     list2 = list1
     list3 = list1[:]
@@ -126,13 +127,12 @@ def test_5():
     assert ['a', 'b', 'c', ['e', 'f']] == list1, 'deepcopy 1 error'
     assert ['a', 'b', 'c', ['d', 'f']] == list6, 'deepcopy 2 error'
 
-
+# 倒着删除: 为了防止删除时报错或者数据不对
 def test_6():
     list1 = ['a', 'b', 'c', 'd']
     for i in range(len(list1) - 1, -1, -1):
-        if list1[i] == 'c':
-            del list1[i]
-    assert ['a', 'b', 'd'] == list1, 'list delete error'
+        del list1[i]
+    assert [] == list1, 'list delete error'
 
 
 def test_7():

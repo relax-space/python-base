@@ -102,19 +102,23 @@ def test_5():
 
 def test_6():
     # 方法：dict(p)
-    dict1 = dict()
+    
+    dict1 = {}
     assert {} == dict1, 'dict new 1 error'
+    
+    dict1 = dict()
+    assert {} == dict1, 'dict new 2 error'
 
     dict1 = dict({'a': 1})
-    assert {'a': 1} == dict1, 'dict new 2 error'
+    assert {'a': 1} == dict1, 'dict new 3 error'
 
     dict1 = dict([('a', 1), ('b', 2)])
-    assert {'a': 1, 'b': 2} == dict1, 'dict new 3 error'
+    assert {'a': 1, 'b': 2} == dict1, 'dict new 4 error'
 
     dict1 = dict(a=1, b=2)
-    assert {'a': 1, 'b': 2} == dict1, 'dict new 4 error'
+    assert {'a': 1, 'b': 2} == dict1, 'dict new 5 error'
 
     params = {'a': 1, 'b': 2}
     dict1 = dict(**params)
-    assert {'a': 1, 'b': 2} == dict1, 'dict new 5 error'
+    assert {'a': 1, 'b': 2} == dict1, 'dict new 6 error'
     pass

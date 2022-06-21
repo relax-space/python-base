@@ -84,14 +84,18 @@ def test_7():
     a2 = re.split(r'\s+', raw)
     assert {'I', 'am', 'from', 'jingzhou'} == set(a2), 'split re error'
 
+    # 取最后一个值
+    a3 = raw.rsplit(' ', 1)[1]
+    assert 'jingzhou' == a3, 'rsplit error'
+
 
 def test_8():
     # 数字 isdecimal 不可以汉字,isdigit 不可以汉字, isnumeric可以汉字
     # 我会优先用isdecimal,因为比较干净
     raw1 = '123'
     raw2 = '五'
-    assert raw1.isdecimal() == raw1.isdigit(
-    ) == raw1.isnumeric() == True, 'isdecimal error'
+    assert raw1.isdecimal() == raw1.isdigit() == raw1.isnumeric(
+    ) == True, 'isdecimal error'
 
     assert not raw2.isdecimal(), 'isdecimal error'
     assert not raw2.isdigit(), 'isdigit error'

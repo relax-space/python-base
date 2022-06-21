@@ -27,13 +27,12 @@ def test_1():
     e = 5 if 5 in set1 else None
     assert e == 5, 'in error'
 
+    # 区别就是remove的元素在set当中没有的话会报错，而discard不会
     set1.discard(5)
     assert {1, 3, 4} == set1, 'discart error'
 
-
     res = set1.pop()
-    print(res,set1)
-    assert 1== res and {3,4} == set1, 'pop error'
+    assert 1 == res and {3, 4} == set1, 'pop error'
 
 
 def test_2():
@@ -69,6 +68,9 @@ def test_2():
 
 def test_3():
     # 方法：set(p),  in,enumerate
+    set1 = set()
+    assert set() == set1, 'set() error'
+    
     set1 = set([1, 2])
     assert {1, 2} == set1, '[1,2] error'
 

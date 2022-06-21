@@ -17,7 +17,7 @@ def test_sub():
     num = re.sub(r'\D+', '', data1)
     assert '15811112222' == num, 're sub 2 error'
 
-    # 如果分组, 在组外面的数字也是包含在内的
+    # 如果分组, 在组外面的is 也是包含在内的
     num = re.sub(r'(.*?)is ', '', data1)
     assert '15811112222' == num, 're sub 3 error'
 

@@ -1,4 +1,3 @@
-
 '''
 
 . \w \s \d a|b () [...] {} * + 
@@ -43,22 +42,20 @@ import re
 
 
 def test_dot():
-    data1 = 'hello \
-world'
+    data1 = 'hello \n world'
     pattern = re.compile(r'.+')
     res_list = pattern.findall(data1)
-    assert 'hello world' == res_list[0], 're dot error'
+    assert ['hello ', ' world'] == res_list, 're dot error'
 
 
 def test_dot2():
     # 有时候需要 . 能匹配所有字符,包括换行符, 就需要带上参数 re.S
-    data1 = '<input name="hello \
-world">'
+    data1 = '<input name="hello \n world">'
+
     # (.+) 括号说明: 正常会取整个<input name="(.+)">,加括号之后,就只取括号里面的了
     ptn = re.compile(r'<input name="(.+)">', re.S)
     res_list = ptn.findall(data1)
-    assert 'hello \
-world' == res_list[0], 're dot 2 error'
+    assert ['hello \n world'] == res_list, 're dot 2 error'
 
 
 def test_w():
@@ -123,8 +120,8 @@ def test_bracket2():
     ptn = re.compile(r'<input id="(?P<id>.*?)" name="(?P<name>.*?)"/>')
     iter_obj = ptn.finditer(data1)
     res_obj = iter_obj.__next__()
-    assert '1' == res_obj.group(
-        'id') and 'xiaoxinmiao' == res_obj.group('name'), 're () error'
+    assert '1' == res_obj.group('id') and 'xiaoxinmiao' == res_obj.group(
+        'name'), 're () error'
 
 
 def test_bracket3():
@@ -153,6 +150,21 @@ def test_bracket_mid2():
     ptn = re.compile(r'[^1-9a-z_$]+')
     res_list = ptn.findall(data1)
     assert ['#'] == res_list, 're [] error'
+
+# 这个例子只是为了便于理解,平时并不常用, 常用的是 .*?
+def test_liangci():
+    data1 = 'abccd'
+    # +: 前一个字符出现1次或者多次
+    re_list = re.findall(r'abc+', data1)
+    assert ['abcc'] == re_list, 're + error'
+
+    # *: 前一个字符出现0次或者多次
+    re_list = re.findall(r'abf*', data1)
+    assert ['ab'] == re_list, 're + error'
+
+    # ?: 前一个字符出现0次或者1次
+    re_list = re.findall(r'abc?', data1)
+    assert ['abc'] == re_list, 're + error'
 
 
 def test_star():
@@ -186,7 +198,8 @@ def test_bracket_big():
     res_list = re.findall(r'\d{2,}', data1)
     assert ['12', '134', '1234'] == res_list, r're {} error'
 
+
 def test_zh():
-    data1 ='我爱111北京%天安🍬___%$|&门'
-    res_list = re.findall(r'[\u4e00-\u9fa5]+',data1)
+    data1 = '我爱111北京%天安🍬___%$|&门'
+    res_list = re.findall(r'[\u4e00-\u9fa5]+', data1)
     assert '我爱北京天安门' == ''.join(res_list), r're zh error'
