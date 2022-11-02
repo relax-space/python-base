@@ -50,10 +50,10 @@ def test_dot():
 
 def test_dot2():
     # 有时候需要 . 能匹配所有字符,包括换行符, 就需要带上参数 re.S
-    data1 = '<input name="hello \n world">'
+    data1 = '<[input name="hello \n world">'
 
     # (.+) 括号说明: 正常会取整个<input name="(.+)">,加括号之后,就只取括号里面的了
-    ptn = re.compile(r'<input name="(.+)">', re.S)
+    ptn = re.compile(r'<\[input name="(.+)">', re.S)
     res_list = ptn.findall(data1)
     assert ['hello \n world'] == res_list, 're dot 2 error'
 
@@ -151,6 +151,7 @@ def test_bracket_mid2():
     res_list = ptn.findall(data1)
     assert ['#'] == res_list, 're [] error'
 
+
 # 这个例子只是为了便于理解,平时并不常用, 常用的是 .*?
 def test_liangci():
     data1 = 'abccd'
@@ -203,3 +204,14 @@ def test_zh():
     data1 = '我爱111北京%天安🍬___%$|&门'
     res_list = re.findall(r'[\u4e00-\u9fa5]+', data1)
     assert '我爱北京天安门' == ''.join(res_list), r're zh error'
+
+
+def test_batch1():
+    # 匹配时: 不消耗字符(?<=...) 或者(?=...)
+    # 需求: 只匹配两个分号(;)之间的 字母加上后面的1位或2位数字
+    data1 = ';A10;S20;W10;D30;X;A1A;B10A11;;A10;'
+    res_list = re.findall(r'(?<=;)([ASWD]\d{1,2});', data1)
+    assert ['A10', 'S20', 'W10', 'D30', 'A10'] == res_list, 'test_batch1 error'
+
+    res_list = re.findall(r';([ASWD]\d{1,2})(?=;)', data1)
+    assert ['A10', 'S20', 'W10', 'D30', 'A10'] == res_list, 'test_batch2 error'
