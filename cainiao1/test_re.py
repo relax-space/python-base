@@ -215,3 +215,6 @@ def test_batch1():
 
     res_list = re.findall(r';([ASWD]\d{1,2})(?=;)', data1)
     assert ['A10', 'S20', 'W10', 'D30', 'A10'] == res_list, 'test_batch2 error'
+
+
+
